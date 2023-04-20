@@ -50,7 +50,7 @@ public class IndexController {
     }
 
     @PostMapping ("/join")
-    public @ResponseBody String join(User user){
+    public String join(User user){
         System.out.println(user);
         user.setRole("ROLE_USER");
         String rawPassword = user.getPassword();
