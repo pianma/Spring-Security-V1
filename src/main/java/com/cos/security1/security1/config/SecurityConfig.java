@@ -1,6 +1,7 @@
 package com.cos.security1.security1.config;
 
 
+import org.aspectj.weaver.ast.And;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -33,8 +34,12 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login")//login 주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행함.
-                .defaultSuccessUrl("/");
-             ;
+                .defaultSuccessUrl("/")
+                .and()
+                .oauth2Login()
+                .loginPage("/loginForm"); //구글 로그인이 완료된 뒤의 후처리가 필요함.
+
+
 
 
         return http.build();
