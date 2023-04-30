@@ -1,5 +1,6 @@
-package com.cos.security1.security1.config.auth;
+package com.cos.security1.security1.config.oauth;
 
+import com.cos.security1.security1.config.auth.PrincipalDetails;
 import com.cos.security1.security1.model.User;
 import com.cos.security1.security1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
+
 
 
     //구글로부터 받는 userRequest 데이터에 대한 후처리되는 함수
@@ -36,7 +36,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String provider = userRequest.getClientRegistration().getClientId(); // google
         String providerId = oAuth2User.getAttribute("sub");
         String username = provider + "_" + providerId; // google_87464687684618
-        String password = bCryptPasswordEncoder.encode("pianma");
         String email = oAuth2User.getAttribute("email");
         String role = "ROLE_USER";
 
@@ -46,7 +45,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             System.out.println("구글로그인 최초");
             userEntity = User.builder()
                     .username(username)
-                    .password(password)
                     .email(email)
                     .role(role)
                     .provider(provider)
