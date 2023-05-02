@@ -32,6 +32,12 @@ spring:
            scope:
              - email
              - profile
+         facebook:
+           client-id: 1400325504036807
+           client-secret: ed8c013f211e2cf2c1e16e0df49b156c
+           scope:
+             - email
+             - public_profile
 
 #  security:
 #    oauth2:
